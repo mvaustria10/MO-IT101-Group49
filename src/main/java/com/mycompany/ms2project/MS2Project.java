@@ -9,7 +9,10 @@ package com.mycompany.ms2project;
 ///       PARTICIPATING MEMBER: MARK VEMHER AUSTRIA// NOTHING FOLLOWS
 ///           PLEASE CHECK README FILE FOR MORE INFO
 ///
+///    GITHUB: mvaustria10
 ///
+///  CODE TESTED AND RUNNING--
+/// 
 
 //import statements
 import java.io.BufferedReader;// 
