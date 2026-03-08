@@ -11,9 +11,9 @@
 GROUP 49
 
 Participating Member:Mark Vemher Austria
-GITHUB: mvaustria10
+- GITHUB: mvaustria10
 
--CODE TESTED AND RUNNING-
+- CODE TESTED AND RUNNING
 
 
 \# MS2Project - Employee Payroll System
