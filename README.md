@@ -10,11 +10,10 @@
 
 GROUP 49
 
-Participating Member
-
-Mark Vemher Austria
---CODE TESTED AND RUNNING-
+Participating Member:Mark Vemher Austria
 GITHUB: mvaustria10
+------------------------------
+--CODE TESTED AND RUNNING-
 ------------------------------
 
 
