@@ -142,3 +142,5 @@ A: No overtime, no data validation, console only.
 
 A: Fixed work hours, consistent CSV format, standard deduction rates.
 
+Project Plan
+https://docs.google.com/spreadsheets/d/16YZj04v-Sx7ULqvCsu9WMcoTzj_ynPpK/edit?gid=1014247605#gid=1014247605
