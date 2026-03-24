@@ -14,31 +14,31 @@ package com.mycompany.ms2project;
 *  CODE TESTED AND RUNNING--
 */ 
 
-//import statements
-import java.io.BufferedReader;// 
-//reads text files
-import java.io.FileReader;//
+// Import statements for file I/O, data parsing, and collections
+import java.io.BufferedReader;     // Reads text from files line-by-line efficiently
+import java.io.FileReader;         // Opens and reads character files
 
-import java.io.IOException;// haldles file reading error
+import java.io.IOException;        // Handles file I/O exceptions (e.g., file not found, permission errors)
 
-import java.text.ParseException;//
-// for parsing and date format
-import java.text.SimpleDateFormat;//
+import java.text.ParseException;   // Handles date/time parsing errors
+import java.text.SimpleDateFormat; // Formats and parses dates (e.g., "yyyy-MM-dd")
 
-import java.util.ArrayList;//
-// store list of data
-import java.util.List;//
+import java.util.ArrayList;        // Resizable array implementation of List interface
+import java.util.List;             // Generic interface for resizable collections of data
 
-import java.util.HashMap;//
-//store key value pairs
-import java.util.Map;//
+import java.util.HashMap;          // Hash table implementation of Map (fast lookups by key)
+import java.util.Map;              // Generic interface for key-value pair storage
 
-import java.util.Scanner;//read inputs 
+import java.util.Scanner;          // Reads user input from console (keyboard)
 
+/**
+ * Represents SSS contribution bracket
+ * Maps salary ranges to required monthly contributions
+ */
 class SSSBracket {
-    double minSalary;
-    double maxSalary;
-    double contribution;
+    double minSalary;    // Minimum monthly salary for this bracket (inclusive)
+    double maxSalary;    // Maximum monthly salary for this bracket (exclusive)
+    double contribution; // Required SSS contribution amount for this salary range
     
     SSSBracket(double minSalary, double maxSalary, double contribution) {
         this.minSalary = minSalary;
@@ -49,21 +49,27 @@ class SSSBracket {
 
 public class MS2Project {
     
-// Employee CSV column indices
-    static final int EMP_ID_INDEX = 0;
-    static final int EMP_LAST_NAME_INDEX = 1;
-    static final int EMP_FIRST_NAME_INDEX = 2;
-    static final int EMP_BIRTHDAY_INDEX = 3;
-    static final int EMP_BASIC_SALARY_INDEX = 13;
-    static final int EMP_HOURLY_RATE_INDEX = 18;
+    // ========================================
+    // EMPLOYEE CSV COLUMN INDICES (Column 0 = A)
+    // ========================================
+    static final int EMP_ID_INDEX = 0;           // Employee ID
+    static final int EMP_LAST_NAME_INDEX = 1;    // Last Name  
+    static final int EMP_FIRST_NAME_INDEX = 2;   // First Name
+    static final int EMP_BIRTHDAY_INDEX = 3;     // Birthday (dd/MM/yyyy)
+    static final int EMP_BASIC_SALARY_INDEX = 13; // Monthly basic salary (₱)
+    static final int EMP_HOURLY_RATE_INDEX = 18;  // Hourly rate (₱)
     
-    // Attendance CSV column indices
-    static final int ATT_EMP_ID_INDEX = 0;
-    static final int ATT_DATE_INDEX = 3;
-    static final int ATT_LOGIN_TIME_INDEX = 4;
-    static final int ATT_LOGOUT_TIME_INDEX = 5;
+    // ========================================
+    // ATTENDANCE CSV COLUMN INDICES
+    // ========================================
+    static final int ATT_EMP_ID_INDEX = 0;       // Employee ID
+    static final int ATT_DATE_INDEX = 3;         // Attendance date
+    static final int ATT_LOGIN_TIME_INDEX = 4;   // Login time 
+    static final int ATT_LOGOUT_TIME_INDEX = 5;  // Logout time 
     
-    
+    // ========================================
+    //          SSS CONTRIBUTION TABLE 
+    // ========================================
     static final SSSBracket[] SSS_BRACKETS = {
         new SSSBracket(0, 3250, 135.0),
         new SSSBracket(3250, 3750, 157.5),
@@ -113,27 +119,35 @@ public class MS2Project {
     };
     // ========================================================
     
-    //variables
-    static Scanner scanner = new Scanner(System.in);//reads user input
-    static List<String[]> employeeData = new ArrayList<>();//stores employee rows
-    static List<String[]> attendanceData = new ArrayList<>();//stores attendance rows
-    static Map<String, String[]> employeeMap = new HashMap<>();//look up employee data
-    static Map<String, List<String[]>> attendanceMap = new HashMap<>();//look up attendance data
-    static SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy"); // formats the date this way ("M/d/yyyy")
+    // ========================================
+    // GLOBAL VARIABLES & CONFIGURATION
+    // ========================================
+    static Scanner scanner = new Scanner(System.in);  // Console input reader
+
+    // Data Storage (loaded from CSV files)
+    static List<String[]> employeeData = new ArrayList<>();      // All employee rows
+    static List<String[]> attendanceData = new ArrayList<>();    // All attendance rows
+    static Map<String, String[]> employeeMap = new HashMap<>();  // EMP_ID → Employee row (fast lookup)
+    static Map<String, List<String[]>> attendanceMap = new HashMap<>(); // EMP_ID → List of attendance rows
+
+    static SimpleDateFormat dateFormat = new SimpleDateFormat("M/d/yyyy"); //date format parser
     
+    // AUTHENTICATION
     static final String VALID_USER_1 = "employee"; // employee user name
     static final String VALID_USER_2 = "Payroll_staff"; // staff user name
     static final String VALID_PASSWORD = "12345"; //pw for both
+    // ========================================
+    // WORK SCHEDULE & PROCESSING
     static final double WORK_START_HOUR = 8.0; //start shift
     static final double WORK_END_HOUR = 17.0; // end shift
-    
     // Months to process: June (6) to December (12)
     static final int[] MONTHS_TO_PROCESS = {6, 7, 8, 9, 10, 11, 12};
     
-    // main method, login page
+    // ========================================
+    // MAIN ENTRY POINT
     public static void main(String[] args) {
-        loadEmployeeData(); //read data
-        loadAttendanceData(); //read data
+        loadEmployeeData();    // Parse Employee.csv 
+        loadAttendanceData();  // Parse Attendance.csv
         
         System.out.println("============================================");
         System.out.println("     WELCOME TO MOTORPH PAYROLL SYSTEM      ");
@@ -146,7 +160,8 @@ public class MS2Project {
             System.out.println("---Bye---");
         }
     }
-    //login method
+    // ========================================
+    // AUTHENTICATION
     static boolean login() {
         System.out.print("\nEnter Username: ");//prompt
         String username = scanner.nextLine().trim(); //reads user input
@@ -165,7 +180,8 @@ public class MS2Project {
         }                //  returns if login succeeded or not
         return false;    //
     }
-    // employee menu
+    // ========================================
+    // EMPLOYEE MENU
     static void employeeMenu() {
         while (true) { // loops the menu until exit
             System.out.println("\n============================================");     //
@@ -192,9 +208,12 @@ public class MS2Project {
                 default -> // handles wrong input
                     System.out.println("\nInvalid option. Please try again.");
             }
-            //this will execute based on choice
                     }
     }
+ /**
+ * Displays basic employee profile information
+ * Accessible only to logged-in Employee role users
+ */
      static void displayEmployeeDetails(String empNum) {
         // Input validation
         if (empNum == null || empNum.trim().isEmpty()) {
@@ -215,8 +234,14 @@ public class MS2Project {
             System.out.println("\nError: Employee number '" + empNum + "' does not exist.");  // IMPROVED
         }
     }
- 
-    //payroll staff menu
+    
+/**
+ * PAYROLL STAFF DASHBOARD
+ * Options:
+ * 1. Process Payroll → Opens payroll processing sub menu
+ * 2. Exit Program → Terminates application  
+ * Entry point after successful Payroll_staff login
+ */
     static void payrollStaffMenu() {
         while (true) {
             System.out.println("\n============================================");
@@ -239,6 +264,14 @@ public class MS2Project {
             }
         }
     }
+    
+/**
+ * PAYROLL PROCESSING SUBMENU
+ * Allows Payroll Staff to:
+ * 1. Generate payroll for ONE employee 
+ * 2. Generate payroll for ALL employees 
+ * 3. Return to Staff Dashboard
+  */
     static void processPayrollMenu() {
         while (true) {
             System.out.println("\n============================================");
@@ -267,7 +300,13 @@ public class MS2Project {
             }
         }
     }
-    //load emp data
+ /**
+ * LOADS EMPLOYEE DATA FROM CSV
+ * Reads Employee.csv → Parses rows → Populates:
+ * - employeeData (List of all rows)
+ * - employeeMap (EMP_ID → row lookup) 
+ * Skips header, validates columns, reports load count
+ */
     static void loadEmployeeData() {
         String fileName;
         fileName = "src/Employee.csv";
@@ -303,7 +342,13 @@ public class MS2Project {
         }
     }
  
-    
+/**
+ * LOADS ATTENDANCE DATA FROM CSV
+ * Reads Attendance.csv → Groups by EMP_ID → Populates:
+ * - attendanceData (All raw records)
+ * - attendanceMap (EMP_ID → List of attendance rows)
+ * Skips header, validates columns, auto-groups by employee
+ */    
     static void loadAttendanceData() {
         String fileName;
         fileName = "src/Attendance.csv";
@@ -344,14 +389,13 @@ public class MS2Project {
         }
     }
  
-   /**
-     * Calculates total work hours and days worked within a specific cutoff period (1-15 or 16-end).
-     * @param attendance List of attendance records for an employee
-     * @param month Month number (6-12)
-     * @param startDay Start day of cutoff period (1 or 16)
-     * @param endDay End day of cutoff period (15 or 28-31)
-     * @return Array containing [totalHours, daysWorked]
-     */
+/**
+ * CALCULATES CUTOFF HOURS
+ * Filters attendance records by month + date range (1-15 or 16-end)
+ * Returns: [totalHoursWorked, daysWorked]
+ * Used by: All payroll calculations
+ * Handles: Date parsing, cutoff filtering, error logging
+ */
     
     static double[] calculateCutoffHours(List<String[]> attendance, int month, int startDay, int endDay) {
         double totalHours = 0.0; // Hours worked in the cutoff period
@@ -387,7 +431,12 @@ public class MS2Project {
     }
  
     
-    //calculate daily hrs. computes the number of wokr hrs for a single day based on login and logout time capped at 8 hrs
+/**
+ * DAILY HOURS CALCULATOR
+ * Parses login/logout → Applies 8AM-5PM cap → Returns work hours (max 8/day)
+ * Features: Time parsing, schedule enforcement, full-day detection, error handling
+ * Used by: calculateCutoffHours() for all payroll
+ */
     static double calculateDailyHours(String logIn, String logOut) {
         // Validate inputs
         if (logIn == null || logOut == null || logIn.trim().isEmpty() || logOut.trim().isEmpty()) {
@@ -422,7 +471,9 @@ public class MS2Project {
         }
     }
  
-    // sss calculation
+/**
+ * GOVERNMENT DEDUCTIONS (SSS + PhilHealth + Pag-IBIG + Tax)
+ */
     static double calculateSSS(double monthlySalary) {
         for (SSSBracket bracket : SSS_BRACKETS) {
             if (monthlySalary >= bracket.minSalary && monthlySalary < bracket.maxSalary) {
@@ -463,8 +514,12 @@ public class MS2Project {
             return 200833.33 + (monthlyTaxableIncome - 666667) * 0.35;
         }
     }
-//Payroll process for employees
-    
+/**
+ * PAYROLL DATA STRUCTURE
+ * Holds complete payroll breakdown for 1 employee + 1 month:
+ * Hours/Gross/Net per cutoff (1-15, 16-end) + All deductions
+ * Used by: calculateMonthlyPayroll() + payroll display methods
+ */
     static class PayrollData {
     public double cutoff1Hours, cutoff2Hours;
     public double grossCutoff1, grossCutoff2;
@@ -474,7 +529,12 @@ public class MS2Project {
 }
  
 /**
- * Calculates payroll for a specific month and cutoff.
+ * MASTER PAYROLL CALCULATOR (Core Business Logic)
+ * Computes COMPLETE payroll for 1 employee + 1 month:
+ * 1. Hours → Gross pay (both cutoffs)
+ * 2. Apply SSS/PhilHealth/PagIbig/Tax deductions  
+ * 3. Returns PayrollData (net pay + breakdown)
+ * Called by: processPayrollForEmployee() + processPayrollForAllEmployees()
  */
 static PayrollData calculateMonthlyPayroll(List<String[]> empAttendance, int month, 
                                            double hourlyRate, double basicSalary) {
@@ -499,7 +559,14 @@ static PayrollData calculateMonthlyPayroll(List<String[]> empAttendance, int mon
     
     return data;
 }
- 
+/**
+ * SINGLE EMPLOYEE PAYROLL SLIP GENERATOR
+ * Creates detailed 6-month payroll report (Jun-Dec) for 1 employee:
+ * - Validates employee exists
+ * - Calls calculateMonthlyPayroll() for each month
+ * - Prints formatted payslip with cutoffs + deductions
+ * Called from: processPayrollMenu() → Option 1
+ */ 
       static void processPayrollForEmployee(String empNum) {
         // Input validation
         if (empNum == null || empNum.trim().isEmpty()) {
@@ -549,7 +616,13 @@ static PayrollData calculateMonthlyPayroll(List<String[]> empAttendance, int mon
     }
  
  
-    //generates and prints payroll report for all employees in the system
+/**
+ * Creates summary report for ALL employees (Jun-Dec):
+ * - Loops through every employee
+ * - Calls calculateMonthlyPayroll() 6x per employee
+ * - Prints compact summary (no detailed deductions)
+ * Called from: processPayrollMenu() → Option 2
+ */
     static void processPayrollForAllEmployees() {
         System.out.println("\n");
         System.out.println("================================================================================");
@@ -595,7 +668,11 @@ static PayrollData calculateMonthlyPayroll(List<String[]> empAttendance, int mon
         System.out.println("================================================================================");
     }
  
-    //Converts a month number into its name (as a string).
+/**
+ * MONTH NUMBER → NAME CONVERTER (Jun-Dec only)
+ * Converts 6-12 → "June"-"December" for payroll reports
+ * Used by: Payroll display methods for readable dates
+ */
     static String getMonthName(int month) {
         return switch (month) {
             case 6 -> "June";
@@ -608,7 +685,12 @@ static PayrollData calculateMonthlyPayroll(List<String[]> empAttendance, int mon
             default -> "Unknown";
         };
     }
-    //Returns the number of days in a given month (June–December).
+/**
+ * DAYS IN MONTH LOOKUP (Jun-Dec Payroll Period)
+ * Returns correct days for cutoff2 end date (16-31)
+ * Used by: calculateCutoffHours() for accurate date ranges
+ */
+    
     static int getDaysInMonth(int month) {
         return switch (month) {
             case 6 -> 30;
@@ -621,7 +703,12 @@ static PayrollData calculateMonthlyPayroll(List<String[]> empAttendance, int mon
             default -> 30;
         }; 
     }
-
+/**
+ * SAFE DOUBLE PARSER (CSV Data Protection)
+ * Parses strings → double with null/empty/invalid fallbacks
+ * Prevents crashes from bad CSV salary/rate data
+ * Used by: All payroll calculations (safeParseDouble(emp[...]))
+ */
     private static double safeParseDouble(String string, double defaultValue) {
     if (string == null || string.trim().isEmpty()) {
         return defaultValue;
