@@ -234,7 +234,7 @@ public class MS2Project {
             System.out.println("\nError: Employee number '" + empNum + "' does not exist.");  // IMPROVED
         }
     }
-    
+ // ========================================   
 /**
  * PAYROLL STAFF DASHBOARD
  * Options:
@@ -264,7 +264,7 @@ public class MS2Project {
             }
         }
     }
-    
+ // ========================================   
 /**
  * PAYROLL PROCESSING SUBMENU
  * Allows Payroll Staff to:
