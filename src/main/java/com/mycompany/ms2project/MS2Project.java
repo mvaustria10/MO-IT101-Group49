@@ -34,13 +34,17 @@ import java.util.HashMap;//
 import java.util.Map;//
 
 import java.util.Scanner;//read inputs 
-class PayrollData {
-    public double cutoff1Hours, cutoff2Hours;
-    public double grossCutoff1, grossCutoff2;
-    public double sss, philHealth, pagIbig, tax;
-    public double totalDeductions;
-    public double netCutoff1, netCutoff2;
-    public double monthlyGross;
+
+class SSSBracket {
+    double minSalary;
+    double maxSalary;
+    double contribution;
+    
+    SSSBracket(double minSalary, double maxSalary, double contribution) {
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+        this.contribution = contribution;
+    }
 }
 
 public class MS2Project {
@@ -58,6 +62,55 @@ public class MS2Project {
     static final int ATT_DATE_INDEX = 3;
     static final int ATT_LOGIN_TIME_INDEX = 4;
     static final int ATT_LOGOUT_TIME_INDEX = 5;
+    
+    
+    static final SSSBracket[] SSS_BRACKETS = {
+        new SSSBracket(0, 3250, 135.0),
+        new SSSBracket(3250, 3750, 157.5),
+        new SSSBracket(3750, 4250, 180.0),
+        new SSSBracket(4250, 4750, 202.5),
+        new SSSBracket(4750, 5250, 225.0),
+        new SSSBracket(5250, 5750, 247.5),
+        new SSSBracket(5750, 6250, 270.0),
+        new SSSBracket(6250, 6750, 292.5),
+        new SSSBracket(6750, 7250, 315.0),
+        new SSSBracket(7250, 7750, 337.5),
+        new SSSBracket(7750, 8250, 360.0),
+        new SSSBracket(8250, 8750, 382.5),
+        new SSSBracket(8750, 9250, 405.0),
+        new SSSBracket(9250, 9750, 427.5),
+        new SSSBracket(9750, 10250, 450.0),
+        new SSSBracket(10250, 10750, 472.5),
+        new SSSBracket(10750, 11250, 495.0),
+        new SSSBracket(11250, 11750, 517.5),
+        new SSSBracket(11750, 12250, 540.0),
+        new SSSBracket(12250, 12750, 562.5),
+        new SSSBracket(12750, 13250, 585.0),
+        new SSSBracket(13250, 13750, 607.5),
+        new SSSBracket(13750, 14250, 630.0),
+        new SSSBracket(14250, 14750, 652.5),
+        new SSSBracket(14750, 15250, 675.0),
+        new SSSBracket(15250, 15750, 697.5),
+        new SSSBracket(15750, 16250, 720.0),
+        new SSSBracket(16250, 16750, 742.5),
+        new SSSBracket(16750, 17250, 765.0),
+        new SSSBracket(17250, 17750, 787.5),
+        new SSSBracket(17750, 18250, 810.0),
+        new SSSBracket(18250, 18750, 832.5),
+        new SSSBracket(18750, 19250, 855.0),
+        new SSSBracket(19250, 19750, 877.5),
+        new SSSBracket(19750, 20250, 900.0),
+        new SSSBracket(20250, 20750, 922.5),
+        new SSSBracket(20750, 21250, 945.0),
+        new SSSBracket(21250, 21750, 967.5),
+        new SSSBracket(21750, 22250, 990.0),
+        new SSSBracket(22250, 22750, 1012.50),
+        new SSSBracket(22750, 23250, 1035.00),
+        new SSSBracket(23250, 23750, 1057.50),
+        new SSSBracket(23750, 24250, 1080.00),
+        new SSSBracket(24250, 24750, 1102.50),
+        new SSSBracket(24750, Double.MAX_VALUE, 1125.00)
+    };
     // ========================================================
     
     //variables
@@ -371,51 +424,13 @@ public class MS2Project {
  
     // sss calculation
     static double calculateSSS(double monthlySalary) {
-        if (monthlySalary < 3250) return 135.0;
-        else if (monthlySalary < 3750) return 157.5;
-        else if (monthlySalary < 4250) return 180.0;
-        else if (monthlySalary < 4750) return 202.5;
-        else if (monthlySalary < 5250) return 225.0;
-        else if (monthlySalary < 5750) return 247.5;
-        else if (monthlySalary < 6250) return 270.0;
-        else if (monthlySalary < 6750) return 292.5;
-        else if (monthlySalary < 7250) return 315.0;
-        else if (monthlySalary < 7750) return 337.5;
-        else if (monthlySalary < 8250) return 360.0;
-        else if (monthlySalary < 8750) return 382.5;
-        else if (monthlySalary < 9250) return 405.0;
-        else if (monthlySalary < 9750) return 427.5;
-        else if (monthlySalary < 10250) return 450.0;
-        else if (monthlySalary < 10750) return 472.5;
-        else if (monthlySalary < 11250) return 495.0;
-        else if (monthlySalary < 11750) return 517.5;
-        else if (monthlySalary < 12250) return 540.0;
-        else if (monthlySalary < 12750) return 562.5;
-        else if (monthlySalary < 13250) return 585.0;
-        else if (monthlySalary < 13750) return 607.5;
-        else if (monthlySalary < 14250) return 630.0;
-        else if (monthlySalary < 14750) return 652.5;
-        else if (monthlySalary < 15250) return 675.0;
-        else if (monthlySalary < 15750) return 697.5;
-        else if (monthlySalary < 16250) return 720.0;
-        else if (monthlySalary < 16750) return 742.5;
-        else if (monthlySalary < 17250) return 765.0;
-        else if (monthlySalary < 17750) return 787.5;
-        else if (monthlySalary < 18250) return 810.0;
-        else if (monthlySalary < 18750) return 832.5;
-        else if (monthlySalary < 19250) return 855.0;
-        else if (monthlySalary < 19750) return 877.5;
-        else if (monthlySalary < 20250) return 900.0;
-        else if (monthlySalary < 20750) return 922.5;
-        else if (monthlySalary < 21250) return 945.0;
-        else if (monthlySalary < 21750) return 967.5;
-        else if (monthlySalary < 22250) return 990.0;
-        else if (monthlySalary < 22750) return 1012.50;
-        else if (monthlySalary < 23250) return 1035.00;
-        else if (monthlySalary < 23750) return 1057.50;
-        else if (monthlySalary < 24250) return 1080.00;
-        else if (monthlySalary < 24750) return 1102.50;
-        else return 1125.00;
+        for (SSSBracket bracket : SSS_BRACKETS) {
+            if (monthlySalary >= bracket.minSalary && monthlySalary < bracket.maxSalary) {
+                return bracket.contribution;
+            }
+        }
+        // Fallback (should not reach here if brackets are complete)
+        return SSS_BRACKETS[SSS_BRACKETS.length - 1].contribution;
     }
     //Phlhealth calculations
     static double calculatePhilHealth(double monthlyBasicSalary) {
@@ -450,37 +465,42 @@ public class MS2Project {
     }
 //Payroll process for employees
     
-    static PayrollData calculateMonthlyPayroll(List<String[]> empAttendance, int month, 
-                                               double hourlyRate, double basicSalary) {
-        PayrollData payroll = new PayrollData();
-        
-        // Calculate hours per cutoff
-        double[] cutoff1Hours = calculateCutoffHours(empAttendance, month, 1, 15);
-        double[] cutoff2Hours = calculateCutoffHours(empAttendance, month, 16, getDaysInMonth(month));
-        
-        payroll.cutoff1Hours = cutoff1Hours[0];
-        payroll.cutoff2Hours = cutoff2Hours[0];
-        
-        // Calculate gross pay
-        payroll.grossCutoff1 = payroll.cutoff1Hours * hourlyRate;
-        payroll.grossCutoff2 = payroll.cutoff2Hours * hourlyRate;
-        payroll.monthlyGross = payroll.grossCutoff1 + payroll.grossCutoff2;
-        
-        // Calculate deductions
-        payroll.sss = calculateSSS(payroll.monthlyGross);
-        payroll.philHealth = calculatePhilHealth(basicSalary);
-        payroll.pagIbig = calculatePagIbig(basicSalary);
-        payroll.tax = calculateTax(payroll.monthlyGross - payroll.sss - payroll.philHealth - payroll.pagIbig);
-        
-        // Calculate net pay
-        payroll.totalDeductions = payroll.sss + payroll.philHealth + payroll.pagIbig + payroll.tax;
-        payroll.netCutoff1 = payroll.grossCutoff1;
-        payroll.netCutoff2 = payroll.grossCutoff2 - payroll.totalDeductions;
-        
-        return payroll;
-    }
+    static class PayrollData {
+    public double cutoff1Hours, cutoff2Hours;
+    public double grossCutoff1, grossCutoff2;
+    public double sss, philHealth, pagIbig, tax;
+    public double totalDeductions;
+    public double netCutoff1, netCutoff2;
+}
+ 
+/**
+ * Calculates payroll for a specific month and cutoff.
+ */
+static PayrollData calculateMonthlyPayroll(List<String[]> empAttendance, int month, 
+                                           double hourlyRate, double basicSalary) {
+    PayrollData data = new PayrollData();
     
-    static void processPayrollForEmployee(String empNum) {
+    data.cutoff1Hours = calculateCutoffHours(empAttendance, month, 1, 15)[0];
+    data.cutoff2Hours = calculateCutoffHours(empAttendance, month, 16, getDaysInMonth(month))[0];
+    
+    data.grossCutoff1 = data.cutoff1Hours * hourlyRate;
+    data.grossCutoff2 = data.cutoff2Hours * hourlyRate;
+    
+    double monthlyGross = data.grossCutoff1 + data.grossCutoff2;
+    
+    data.sss = calculateSSS(monthlyGross);
+    data.philHealth = calculatePhilHealth(basicSalary);
+    data.pagIbig = calculatePagIbig(basicSalary);
+    data.tax = calculateTax(monthlyGross - data.sss - data.philHealth - data.pagIbig);
+    
+    data.totalDeductions = data.sss + data.philHealth + data.pagIbig + data.tax;
+    data.netCutoff1 = data.grossCutoff1;
+    data.netCutoff2 = data.grossCutoff2 - data.totalDeductions;
+    
+    return data;
+}
+ 
+      static void processPayrollForEmployee(String empNum) {
         // Input validation
         if (empNum == null || empNum.trim().isEmpty()) {
             System.out.println("\nError: Employee number cannot be empty.");
@@ -527,6 +547,7 @@ public class MS2Project {
         
         System.out.println("================================================================================");
     }
+ 
  
     //generates and prints payroll report for all employees in the system
     static void processPayrollForAllEmployees() {
