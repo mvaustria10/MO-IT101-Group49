@@ -126,5 +126,5 @@ The system is used by authorized users with correct login credentials
 
 -------------------------------------------------------------------------------
 
-📝 Project Plan
+📝 Project Plan (MMDC Template)
 https://docs.google.com/spreadsheets/d/1cyHZtqzrkR0CXDAcpjE_3mWHy2d2gyWiHHVGxZIF0DU/edit?usp=sharing
