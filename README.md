@@ -11,6 +11,9 @@ MS2Project is a Java console-based payroll system that processes employee salari
 
 It reads data from CSV files, calculates total pay, and applies standard deductions such as SSS, PhilHealth, Pag-IBIG, and Tax.
 
+You can access the source code by navigating to:
+src → main → java → com → mycompany → ms2project
+
 -------------------------------------------------------------------------------
 
 📂 Project Files
