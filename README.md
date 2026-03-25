@@ -1,146 +1,127 @@
+-------------------------------------------------------------------------------
+MS2 MotorPH Payroll System
 
-
-
-
-===========MS2 MOTORPH PAYROLL SYSTEM===========
-
-
-
-
-
-GROUP 49
-
-Participating Member
-
+Group 49
 Mark Vemher Austria
 
-------------------------------
 
+📌 Overview
 
+MS2Project is a Java console-based payroll system that processes employee salaries from June to December.
 
-\# MS2Project - Employee Payroll System
+It reads data from CSV files, calculates total pay, and applies standard deductions such as SSS, PhilHealth, Pag-IBIG, and Tax.
 
+-------------------------------------------------------------------------------
 
+📂 Project Files
 
-This Java console program calculates payroll for employees from June to December. 
+📊 Employee.csv – Employee information and salary details
 
-It reads employee and attendance data from CSV files, performs payroll calculations
+📊 Attendance.csv – Daily attendance records
 
-including deductions (SSS, PhilHealth, Pag-IBIG, Tax), and displays the results in the console.
+▶️ How to Run
 
+➤ Open the project in NetBeans
 
+➤ Run the program
 
+➤ Log in using the credentials below
 
+➤ User Options
 
-\## Project Files
+➤ Employee
 
+➤ View personal details using employee number (e.g., 10001)
 
+➤ Payroll Staff
 
-\- `Employee.csv` → Contains employee personal and salary information
+➤ Process payroll for a single employee or all employees
 
-\- `Attendance.csv` → Contains daily attendance records
+➤ Exit program
 
+-------------------------------------------------------------------------------
 
+🔐 Login Credentials
 
-\## How to Run the Program
+Employee
 
+Username: employee
+Password: 12345
 
+Payroll Staff
 
-1\. Open the project in NetBeans
+Username: Payroll_staff
+Password: 12345
 
-2\. Run the program
+-------------------------------------------------------------------------------
 
-3\. Enter the login credentials when prompted
+⚙️ Features
 
+✅️ Employee detail viewing (Employee login)
 
+✅️ Payroll processing with deductions:
 
-For Employees, Press 1 and enter your employee number (i.e 10001)
+✅️ SSS, PhilHealth, Pag-IBIG, Tax
 
-this will show your Details
+✅️ CSV-based data loading
 
+✅️ Console interface with role-based access
 
+-------------------------------------------------------------------------------
 
-For Payroll Staff, Press 1 to process Payroll, Press 2 to exit the program.
+🛠 Improvements
 
-After pressing 1, Please select if you want to process a single employee or process all employees. 
+💡 Improved code comments for better readability
 
+💡 Replaced hardcoded column indices with constants
 
+💡 Extracted reusable payroll calculation method
 
+💡 Updated file paths to be configurable
 
+💡 Implemented data-driven SSS calculation (easier updates)
 
+💡 Fixed issues in processing payroll for all employees
 
+💡 Added safeDoubleParse method for error handling
 
-\## Login Credentials
+💡 Added warnings for missing files
 
+-------------------------------------------------------------------------------
 
+❗ Limitations
 
-\*\*Employee\*\*  
+❌ No overtime or advanced salary rules
 
-\- Username: `employee`  
+❌ Limited data validation
 
-\- Password: `12345`
+❌ Console-based only (no GUI)
 
+-------------------------------------------------------------------------------
 
+📖 Assumptions
 
-\*\*Payroll Staff\*\*  
+Employee and attendance data in CSV files are complete and correctly formatted
 
-\- Username: `Payroll\_staff`  
+Each employee has a unique employee number
 
-\- Password: `12345`
+Workdays follow a standard schedule (e.g., fixed working hours per day)
 
+No overtime, night differential, or holiday pay is included
 
+Deduction rates (SSS, PhilHealth, Pag-IBIG, Tax) follow predefined values
 
+Attendance records accurately reflect actual hours worked
 
+Missing or invalid numeric values are handled using default values (via safeDoubleParse)
 
+File paths provided are valid and accessible during runtime
 
+Payroll processing is limited to the period June to December only
 
-\## Features
+The system is used by authorized users with correct login credentials
 
+-------------------------------------------------------------------------------
 
-
-\- Shows Employee details (For Employee login)
-
-\- Deduct SSS, PhilHealth, Pag-IBIG, and Tax
-
-\- Load employee and attendance data from CSV files
-
-\- Console-based interface with login system
-
-
-
-
-
-\## FAQs
-
-
-
-\*\*Q: What does this program do?\*\*  
-
-A: Calculates payroll for employees from June to December.
-
-
-
-\*\*Q: How is data stored?\*\*  
-
-A: CSV files loaded into memory.
-
-
-
-\*\*Q: What calculations are performed?\*\*  
-
-A: Hours worked, gross salary, SSS, PhilHealth, Pag-IBIG, and Tax.
-
-
-
-\*\*Q: What are the limitations?\*\*  
-
-A: No overtime, no data validation, console only.
-
-
-
-\*\*Q: What assumptions were made?\*\*  
-
-A: Fixed work hours, consistent CSV format, standard deduction rates.
-
-Project Plan
+📝 Project Plan
 https://docs.google.com/spreadsheets/d/1cyHZtqzrkR0CXDAcpjE_3mWHy2d2gyWiHHVGxZIF0DU/edit?usp=sharing
